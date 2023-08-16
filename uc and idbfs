@@ -1,0 +1,63 @@
+g={'Sibiu':['Fagaras','Rimnicu Vilcea'], 'Fagaras':['Bucharest'], 'Rimnicu Vilcea':['Pitesti'], 'Pitesti':['Bucharest']}
+c={'Sibiu':[99,80], 'Fagaras':[211], 'Rimnicu Vilcea':[97], 'Pitesti':[101]}
+s='Sibiu'  #source
+d='Bucharest' #destination
+q=s
+l=[]
+minc=[]
+cost=0
+def add():
+  k=0
+  if q not in g:
+    return
+  for i in g[q]:
+    l.append([cost+c[q][k],q,i])
+    if i==d:
+      minc.append(cost+c[q][k])
+    k+=1
+  #print(l)
+  #print()
+if q!=d:
+  add()
+while l:
+  j=min(l)
+  print(j)
+  cost=j[0]
+  q=j[2]
+  l.remove(j)
+  if q!=d:
+    add()
+print(min(minc))
+
+
+g={1:[2,5],2:[3,4],3:[8,9],5:[6,7],7:[10,11]}
+s=int(input('Enter source: '))
+t=int(input('Enter target: '))
+depth=int(input('Enter depth: '))
+def dfs(d):
+  q=[s]
+  v=[s]
+  check=[0]
+  while q:
+    m=q.pop()
+    print(m,end=" ")
+    p=check.pop()
+    if m==t:
+      print("Target found at the given depth")
+      return 1
+    if p+1>d:
+      continue
+    for i in g[m]:
+      if i not in v:
+        check.append(p+1)
+        v.append(i)
+        q.append(i)
+def iddfs():
+  for i in range(depth+1):
+
+    print("depth:",i)
+    if dfs(i):
+      break
+    print()
+iddfs()
+
