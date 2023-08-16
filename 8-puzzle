@@ -1,0 +1,72 @@
+ins=[[1,2,3],[" ",4,6],[7,5,8]]
+import copy
+gs=[[1,2,3],[4,5,6],[7,8," "]]
+def empty(a):
+  for i in range(len(a)):
+    for j in range(len(a)):
+      if a[i][j]==" ":
+        return i,j
+def heuristic(a):
+  c=0
+  for i in range(len(a)):
+    for j in range(len(a)):
+      if a[i][j]==" ":
+        continue
+      if a[i][j]!=gs[i][j]:
+        c+=1
+  return c
+def swap(a,d,h,i,j):
+  a[d][h],a[i][j]=a[i][j],a[d][h]
+  return a
+def puzzle(a):
+  h=[]
+  q=[]
+  i,j=empty(a)
+  if(i-1>-1):
+    t=copy.deepcopy(a)
+    t=swap(t,i-1,j,i,j)
+    q.append(t)
+    m=heuristic(t)
+    h.append(m)
+    if m==0:
+      v.append(t)
+      return
+  if(i+1<len(a)):
+    t=copy.deepcopy(a)
+    t=swap(t,i+1,j,i,j)
+    q.append(t)
+    m=heuristic(t)
+    h.append(m)
+    if m==0:
+      v.append(t)
+      return
+  if(j-1>-1):
+    t=copy.deepcopy(a)
+    t=swap(t,i,j-1,i,j)
+    q.append(t)
+    m=heuristic(t)
+    h.append(m)
+    if m==0:
+      v.append(t)
+      return
+  if(j+1<len(a)):
+    t=copy.deepcopy(a)
+    t=swap(t,i,j+1,i,j)
+    q.append(t)
+    m=heuristic(t)
+    h.append(m)
+    if m==0:
+      v.append(t)
+      return
+    min=10
+    n=0
+    for i in range(len(h)):
+      if min>h[i]:
+        min=h[i]
+        n=i
+    v.append(q[n])
+    puzzle(q[n])
+v=[]
+puzzle(ins)
+for i in v:
+  print(i)
