@@ -48,3 +48,25 @@ if solution:
         print(f"Step {i+1}:{state}")
 else:
     print("No solution found.")
+
+
+
+def dfs(current, goal, path, visited):
+    visited.add(current)
+    if current== goal:
+        return path
+    for next in next_states(current):
+        if next not in visited:
+            solution = dfs(next, goal, path + [next], visited)
+            if solution:
+                return solution
+    return None
+visited = set()
+start = (3, 3, 0, 0, 'left')
+goal= (0, 0, 3, 3, 'right')
+solution = dfs(start, goal, [start], visited)
+if solution:
+    for i, state in enumerate(solution):
+        print(f"Step {i+1}: {state}")
+else:
+    print("No solution found.")
