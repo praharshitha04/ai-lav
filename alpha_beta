@@ -1,0 +1,25 @@
+import math
+MAX,MIN=1000,-1000
+def a_b(depth,node_index,maximisingplayer,scores,alpha,beta):
+  if depth==3:
+    return scores[node_index]
+  if maximisingplayer:
+    best=MIN
+    for i in range(2):
+      val=a_b(depth+1,node_index*2+i,False,scores,alpha,beta)
+      best=max(best,val)
+      alpha=max(alpha,best)
+      if alpha>=beta:
+        break
+    return best
+  else:
+    best=MAX
+    for i in range(2):
+      val=a_b(depth+1,node_index*2+i,True,scores,alpha,beta)
+      best=min(val,best)
+      beta=min(val,beta)
+      if alpha>=beta:
+        break
+    return best
+values = [3, 5, 2, 9, 12, 5, 23, 23]
+print("The optimal value is :", a_b(0, 0, True, values, MIN, MAX))
