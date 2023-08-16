@@ -1,0 +1,29 @@
+def second(x):
+  return x[1]
+q=[]
+def best_fs(g,s,d):
+  visited=[]
+  queue=[]
+  visited.append((s,h[s]))
+  queue.append((s,h[s]))
+  while queue:
+    m=queue.pop(0)
+    q.append(m)
+    print(m,end=" ")
+    if m[0]==d:
+      print("found")
+      return
+    for i in g[m[0]]:
+      if (i,h[i]) not in visited:
+        visited.append((i,h[i]))
+        queue.append((i,h[i]))
+    queue.sort(key=second)
+if __name__=='__main__':
+  graph={'A':["B","C"],'B':["D","E","F"],'C':['G','H','I','J'],"H":['C','I']}
+  h={'A':8,'B':10,'C':4,'D':15,'E':14,'F':12,'G':7,"H":2,'I':0,'J':4}
+  pc={'A':{"B":1,"C":2},'B':{"D":7,"E":9,"F":5},'C':{'G':4,'H':3,'I':6,'J':8},"H":{'C':3,'I':1}}
+  best_fs(graph,'A','I')
+  pcost=0
+  for i in range(len(q)-1):
+    pcost+=pc[q[i][0]][q[i+1][0]]
+  print(pcost)
