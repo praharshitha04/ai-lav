@@ -1,0 +1,33 @@
+def bfs(graph,s):
+  v=[]
+  q=[]
+  v.append(s)
+  q.append(s)
+  while q:
+    m=q.pop(0)
+    print(m,end=" ")
+    for i in graph[m]:
+      if i not in v:
+        q.append(i)
+        v.append(i)
+if __name__=='__main__':
+    graph = { 5:[3,7], 3:[2,4], 7:[8], 2:[], 4:[8], 8:[] }
+    print("Breadth first search of the given graph",end=' ')
+    bfs(graph,5)
+
+def dfs(graph,s):
+  v=[]
+  q=[]
+  v.append(s)
+  q.append(s)
+  while q:
+    m=q.pop()
+    print(m,end=" ")
+    for i in graph[m]:
+      if i not in v:
+        q.append(i)
+        v.append(i)
+if __name__=='__main__':
+    graph = { 5:[3,7], 3:[2,4], 7:[8], 2:[], 4:[8], 8:[] }
+    print("Breadth first search of the given graph",end=' ')
+    dfs(graph,5)
