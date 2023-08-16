@@ -1,0 +1,33 @@
+ini=int(input("enter initial state"))
+goal=int(input("enter goal state:"))
+gra={1:[2,3],2:[1,4],3:[1,5],4:[2,5],5:[3,4,6],6:[5]}
+def bfs(ini,goal,gra):
+  que1=[]
+  que2=[]
+  vis1=[]
+  vis2=[]
+  que1.append(ini)
+  que2.append(goal)
+  while len(que1)!=0 or len(que2)!=0:
+    j=que1.pop()
+    m=que2.pop()
+    if j in vis2 or m in vis1:
+      break
+    if j not in vis1:
+      vis1.append(j)
+      #print(vis1)
+    if m not in vis2:
+      vis2.append(m)
+      #print(vis2)
+    for i in gra[j]:
+      if i not in vis1:
+        que1.append(i)
+    for n in gra[m]:
+      if n not in vis2:
+        que2.append(n)
+  #vis2.pop()
+  p=set(vis1+(vis2[::-1]))
+  return list(p)
+
+l=bfs(ini,goal,gra)
+print(l)
