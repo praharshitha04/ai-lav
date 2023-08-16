@@ -1,0 +1,50 @@
+def valid_state(s):
+    ml, cl, mr, cr, b = s
+    if (ml < 0 or cl < 0 or mr < 0 or cr < 0 or
+            (ml != 0 and ml < cl) or
+            (mr != 0 and mr < cr)):
+        return False
+    return True
+def next_states(s):
+    ml, cl, mr, cr, b = s
+    possible_states = []
+    if b == 'left':
+        for m in range(3):
+            for c in range(3):
+                if m + c > 2 or m + c == 0:
+                    continue
+                new_state = (ml - m, cl - c, mr + m, cr + c, 'right')
+                if valid_state(new_state):
+                    possible_states.append(new_state)
+    else:
+        for m in range(3):
+            for c in range(3):
+                if m + c > 2 or m + c == 0:
+                    continue
+                new_state = (ml + m, cl + c, mr - m, cr - c, 'left')
+                if valid_state(new_state):
+                    possible_states.append(new_state)
+    return possible_states
+from collections import deque
+def bfs(start, goal):
+    visited =set()
+    queue = deque([(start, [])])
+    while queue:
+        current, path = queue.pop()
+        visited.add(current)
+        if current== goal:
+            return path
+        for next in next_states(current):
+            if next not in visited:
+                queue.append((next, path + [next]))
+                visited.add(next)
+    return []
+start = (3, 3, 0, 0, 'left')
+goal = (0, 0, 3, 3, 'right')
+
+solution = bfs(start, goal)
+if solution:
+    for i, state in enumerate(solution):
+        print(f"Step {i+1}:{state}")
+else:
+    print("No solution found.")
