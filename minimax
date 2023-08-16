@@ -1,0 +1,12 @@
+import math
+def minimax(curdep,nodeindex,maxturn,scores,treedepth):
+  if curdep==treedepth:
+    return scores[nodeindex]
+  if(maxturn):
+    return max(minimax(curdep+1,nodeindex*2,False,scores,treedepth),minimax(curdep+1,(nodeindex*2)+1,False,scores,treedepth))
+  else:
+    return min(minimax(curdep+1,nodeindex*2,True,scores,treedepth),minimax(curdep+1,(nodeindex*2)+1,True,scores,treedepth))
+scores=[3, 5, 2, 9, 12, 5, 23, 23]
+treedepth=math.log(len(scores),2)
+print(minimax(0,0,True,scores,treedepth))
+
